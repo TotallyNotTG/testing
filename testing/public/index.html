@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1 id="output">Loading...</h1>
+
+<button onclick="updateMessage()">Set Hello!</button>
+
+<script>
+async function updateMessage() {
+  await fetch("/message", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: "Hello!" })
+  });
+
+  loadMessage();
+}
+
+async function loadMessage() {
+  const res = await fetch("/message");
+  const data = await res.json();
+  document.getElementById("output").innerText = data.message;
+}
+
+loadMessage();
+</script>
+
+</body>
+</html>
